@@ -1,12 +1,12 @@
 <template>
-    <button class="w-full">+ {{ buttonText }}</button>
+    <button class=""> {{ buttonText }}</button>
 </template>
 
 <script>
     export default {
         name: "ButtonComponent",
         props:{
-            buttonText: String
+            buttonText: String,
         }
     }
 </script>

@@ -5,7 +5,7 @@
       class="flex items-center justify-between border p-2.5 rounded-md w-full h-[40px] text-sm cursor-pointer"
       @click="toggleDropdownVisibility"
     >
-      <div class="">
+      <div>
         {{ selectedOption || (selectedOption = options[0]) }}
       </div>
       <div>
@@ -40,21 +40,36 @@
       <div
         v-for="item in options"
         :key="item"
-        class="border text-xs flex items-center p-2.5 cursor-pointer"
+        class="border text-xs flex items-center p-2.5 cursor-pointer mt-3 rounded-md"
         @click="toggleOptionSelect(item)"
       >
         {{ item }}
       </div>
     </div>
     <div v-if="selectedOption == 'Short Answer'" class="mt-2.5">
-      <ShortAnswerComponent text="Short answer text"/>
+      <ShortAnswerComponent text="Short answer text" />
     </div>
     <div v-if="selectedOption == 'Paragraph'" class="mt-2.5">
-      <ParagraphComponent text="Long answer text"/>
+      <ParagraphComponent text="Long answer text" />
     </div>
-    <div v-if="selectedOption == 'CheckBox'" class="mt-4">
-      <CheckBoxComponent placeholder="First Option"/>
+    <!-- <div v-if="selectedOption == 'CheckBox'" class="mt-4">
+      <CheckBoxComponent placeholder="First Option" /> -->
+    <div v-if="click">
+      <div v-for="(item, i) in additionCheckBox" :key="i" class="mt-4">
+        <CheckBoxComponent
+          placeholder="First Option"
+          :id="i"
+          @sendId="deleteCheckBox"
+        />
+      </div>
     </div>
+    <div v-if="showButton" @click="renderAddOption()">
+        <ButtonComponent
+          buttonText="ADD OPTION"
+          class="h-[40px] w-full border border-gray-300 mt-4 text-xs font-bold rounded-md"
+        />
+      </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -62,6 +77,9 @@
 import ShortAnswerComponent from "./DropDownComponents/ShortAnswerComponent.vue";
 import ParagraphComponent from "./DropDownComponents/ParagraphComponent.vue";
 import CheckBoxComponent from "./DropDownComponents/CheckBoxComponent.vue";
+import ButtonComponent from "./ButtonComponent.vue";
+import AddIconComponent from "./IconsComponents/AddIconComponent.vue";
+import { render } from "vue";
 export default {
   name: "AnswerField",
   props: {
@@ -70,18 +88,31 @@ export default {
   components: {
     ShortAnswerComponent,
     ParagraphComponent,
-    CheckBoxComponent
+    CheckBoxComponent,
+    ButtonComponent,
+    AddIconComponent,
   },
   data() {
     return {
       selectedOption: "",
       isDropDownVisible: false,
+      additionCheckBox: [{}],
+      click: false,
+      showButton: false
     };
   },
   methods: {
     toggleOptionSelect(option) {
       this.selectedOption = option;
       this.isDropDownVisible = false;
+      if (this.selectedOption != "CheckBox") {
+        this.click = false;
+        this.showButton = false;
+      }
+      if (this.selectedOption == "CheckBox") {
+        this.click = true;
+        this.showButton = true;
+      }
     },
     toggleDropdownVisibility() {
       this.isDropDownVisible = !this.isDropDownVisible;
@@ -94,6 +125,14 @@ export default {
       if (!dropdownElement.contains(event.target)) {
         this.isDropDownVisible = false;
       }
+    },
+    renderAddOption() {
+      this.additionCheckBox.push({});
+      this.click = true;
+      console.log(this.additionCheckBox.length);
+    },
+    deleteCheckBox(id) {
+      this.additionCheckBox.splice(id, 1);
     },
   },
 };

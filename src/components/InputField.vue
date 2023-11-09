@@ -1,14 +1,12 @@
 <template>
-  <div class="h-[72px]">
-    <label for="question" class="block text-xs font-normal mb-1">Question</label>
-    <input
-      type="text"
-      :placeholder="placeholder"
-      v-model="text"
-      id="question"
-      class="border text-base font-normal text-[#161616] w-[271px] pl-3 h-[52px] rounded-md"
-    />
-  </div>
+  <label for="question" class="block text-xs font-normal mb-1">Question</label>
+  <input
+    type="text"
+    :placeholder="placeholder"
+    v-model="text"
+    id="question"
+    class="border mt-4 text-base font-normal text-[#161616] pl-3 rounded-md block w-full outline-none h-[52px]"
+  />
 </template>
 
 <script>

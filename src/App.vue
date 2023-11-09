@@ -1,19 +1,22 @@
 <template>
-  <div class="mx-auto w-96">
+  <div class="bg-[#F5F5F1]">
     <!-- <InputField placeholder="What do you want ask? "/>
   <hr class="w-[271px] my-4"> -->
-    <NavBar :options="options"/>
+    <!-- <NavBar :options="options"/> -->
+    <QAForm/>
   </div>
 </template>
 
 <script>
-import InputField from "./components/InputField.vue";
-import NavBar from "./components/AnswerField.vue";
+// import InputField from "./components/InputField.vue";
+// import NavBar from "./components/AnswerField.vue";
+import QAForm from './views/QAForm.vue';
 export default {
   name: "App",
   components: {
-    NavBar,
-    InputField,
+    // NavBar,
+    // InputField,
+    QAForm
   },
   data(){
     return{
